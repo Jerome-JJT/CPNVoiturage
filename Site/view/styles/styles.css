@@ -62,55 +62,6 @@ h2
 }
 
 
-.navi {
-  text-align: left;
-
-  padding-left: 30px;
-}
-.nav-tab {
-  height: 40px;
-  min-width: 70px;
-
-  display: inline-block;
-  vertical-align: top;
-
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  text-align: center;
-
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-radius: 30px 30px 0 0;
-
-  background-color: #999999;
-}
-.nav-tab:hover {
-  background-color: white;
-}
-.nav-tab h3 {
-  margin-top: 8px;
-}
-
-.navi button
-{
-  float: right;
-
-  margin: 0 10px;
-  padding: 15px 30px;
-
-  border-radius: 30px / 20px;
-  border: 2px solid black;
-}
-/*.navi button:hover
-{
-  background-color: black;
-  color: white;
-}*/
-
-
 button {
   padding: 5px 10px;
 
@@ -126,6 +77,121 @@ button:hover
   color: white;
 }
 
+.navi button
+{
+  float: right;
+
+  margin: 0 10px;
+  padding: 15px 30px;
+
+  border-radius: 30px / 20px;
+  border: 2px solid black;
+}
+
+
+
+
+
+
+
+
+.navi {
+  height: 50px;
+  padding-left: 30px;
+}
+
+
+
+
+.nav-tab, .day-tab {
+  height: 50px;
+  width: 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+
+  text-align: center;
+
+  background-color: #bbbbbb;
+}
+.nav-tab:hover, .day-tab:hover {
+  background-color: white;
+}
+
+
+/*.navi button:hover
+{
+  background-color: black;
+  color: white;
+}*/
+
+
+
+
+
+
+@media (min-width: 800px) /* BIG */
+{
+  body
+  {
+    background-color: cyan;
+  }
+
+  .day-tab {
+    display: none;
+  }
+
+  .nav-tab {
+    display: inline-flex;
+
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+
+    border-radius: 30px 30px 0 0;
+  }
+}
+@media (max-width: 800px) /* SMOL */
+{
+  body
+  {
+    background-color: red;
+  }
+
+  .day-tab {
+    display: inline-flex;
+
+
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+
+    border-radius: 30px 30px 0 0;
+  }
+
+  .nav-tab {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .other-days
+  {
+    position: absolute;
+    border-bottom: 1px solid black;
+    display: none;
+  }
+
+  .day-select:hover .other-days
+  {
+    display: block;
+  }
+}
+
+
+
 
 .carDay {
   width: 100%;
@@ -137,13 +203,26 @@ button:hover
   border-radius: 20px;
 }
 
-@media (min-width: 800px)
-{
+.travelDisplay {
+  height: 300px;
 
-  body
-  {
-    background-color: cyan;
-  }
+  margin: 0 20px;
+}
 
+.travelCase {
+   height: 85%;
+   display: inline-block;
 
+   vertical-align: top;
+}
+
+.carTable {
+  border-collapse: collapse;
+
+  margin: 5px;
+  text-align: center;
+}
+
+.carTable th, .carTable td {
+  border: 1px solid black;
 }
