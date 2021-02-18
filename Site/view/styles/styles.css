@@ -3,10 +3,13 @@ body
 {
   background-color: red;
 
+  font-family: Verdana;
+  font-size: 14px;
+
   margin: 0;
 }
 
-#content
+#site
 {
     background-color: #dddddd;
 
@@ -22,7 +25,6 @@ body
 {
     background-color: #eeeeee;
 
-
     width: 100%;
     height: 40px;
 
@@ -30,7 +32,7 @@ body
 
 }
 
-#element
+#content
 {
     background-color: green;
 
@@ -49,7 +51,23 @@ body
     height: 60px;
 
     text-align: center;
+}
 
+
+#nav-menu {
+  height: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#page-content {
+  width: 100%;
+  height: 900px;
+
+  background-color: red;
+
+  border: 2px solid black;
+  border-radius: 20px;
 }
 
 
@@ -62,7 +80,39 @@ h2
 }
 
 
-button {
+
+
+#profil-button
+{
+  float: right;
+
+  height: 50px;
+  width: 80px;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+
+  text-align: center;
+
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+
+  border-radius: 30px 30px 0 0;
+}
+#profil-button:hover
+{
+  color: white;
+  background-color: black;
+}
+
+
+
+.mybutton {
   padding: 5px 10px;
 
   border-radius: 30px / 20px;
@@ -71,37 +121,18 @@ button {
   background-color: white;
   color: black;
 }
-button:hover
+.mybutton:hover
 {
   background-color: black;
   color: white;
 }
 
-.navi button
+
+
+.day-select
 {
-  float: right;
-
-  margin: 0 10px;
-  padding: 15px 30px;
-
-  border-radius: 30px / 20px;
-  border: 2px solid black;
+  display: inline-block;
 }
-
-
-
-
-
-
-
-
-.navi {
-  height: 50px;
-  padding-left: 30px;
-}
-
-
-
 
 .nav-tab, .day-tab {
   height: 50px;
@@ -115,17 +146,12 @@ button:hover
   text-align: center;
 
   background-color: #bbbbbb;
+  background-image: linear-gradient(0deg, #888888 0%, #bbbbbb 100%);
 }
 .nav-tab:hover, .day-tab:hover {
-  background-color: white;
+  background-image: linear-gradient(180deg, #aaaaaa 0%, #ffffff 100%);
 }
 
-
-/*.navi button:hover
-{
-  background-color: black;
-  color: white;
-}*/
 
 
 
@@ -139,11 +165,13 @@ button:hover
     background-color: cyan;
   }
 
-  .day-tab {
+  .day-tab
+  {
     display: none;
   }
 
-  .nav-tab {
+  .nav-tab
+  {
     display: inline-flex;
 
     border-top: 2px solid black;
@@ -161,8 +189,9 @@ button:hover
   }
 
   .day-tab {
-    display: inline-flex;
+    width: 120px;
 
+    display: inline-flex;
 
     border-top: 2px solid black;
     border-left: 2px solid black;
@@ -172,57 +201,24 @@ button:hover
   }
 
   .nav-tab {
+    width: 120px;
+
     border-left: 2px solid black;
     border-right: 2px solid black;
     border-bottom: 1px solid black;
   }
 
+
   .other-days
   {
     position: absolute;
-    border-bottom: 1px solid black;
     display: none;
-  }
 
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
   .day-select:hover .other-days
   {
     display: block;
   }
-}
-
-
-
-
-.carDay {
-  width: 100%;
-  height: 900px;
-
-  background-color: red;
-
-  border: 2px solid black;
-  border-radius: 20px;
-}
-
-.travelDisplay {
-  height: 300px;
-
-  margin: 0 20px;
-}
-
-.travelCase {
-   height: 85%;
-   display: inline-block;
-
-   vertical-align: top;
-}
-
-.carTable {
-  border-collapse: collapse;
-
-  margin: 5px;
-  text-align: center;
-}
-
-.carTable th, .carTable td {
-  border: 1px solid black;
 }

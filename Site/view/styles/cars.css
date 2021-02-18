@@ -1,0 +1,27 @@
+
+.travelDisplay {
+  height: 300px;
+
+  margin: 0 20px;
+}
+
+.travelCase {
+   height: 85%;
+   display: inline-block;
+
+   vertical-align: top;
+}
+
+.carTable {
+  margin: 5px;
+  border: 2px solid black;
+
+  font-size: 14px;
+
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.carTable th, .carTable td {
+  border: 1px solid black;
+}

@@ -3,5 +3,10 @@
 function displayView()
 {
   require("view/cars.php");
-  require("view/gabarit.php");
+
+}
+
+function displayProfil()
+{
+  require("view/profile.php");
 }

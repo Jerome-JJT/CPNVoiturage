@@ -6,12 +6,16 @@ require("controler/views.php");
 
 
 
-if(isset($_GET["action"]))
+if(isset($_GET["page"]))
 {
-  switch($_GET["action"])
+  switch($_GET["page"])
   {
     case "view":
       displayView();
+      break;
+
+    case "profil":
+      displayProfil();
       break;
 
     default:
