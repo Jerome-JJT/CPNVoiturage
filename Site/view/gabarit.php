@@ -9,8 +9,9 @@
 
   <body>
     <div id="site">
-      <div id="title">
-        <h2>CPNVoiturage</h2>
+      <div id="title" style="height: 80px">
+        <!--<h2>CPNVoiturage</h2>-->
+        <img style="height:80px" src="view/images/PourGG.png">
       </div>
 
 
