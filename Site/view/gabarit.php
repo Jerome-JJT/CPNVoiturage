@@ -2,6 +2,7 @@
   <head>
     <link rel="stylesheet" href="view/styles/styles.css">
     <link rel="stylesheet" href="view/styles/cars.css">
+    <link rel="stylesheet" href="view/styles/login.css">
 
     <title><?= $title != null ? $title : "CPNVoiturage" ?></title>
   </head>

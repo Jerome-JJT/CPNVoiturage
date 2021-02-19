@@ -10,6 +10,10 @@ if(isset($_GET["page"]))
 {
   switch($_GET["page"])
   {
+    case "home":
+      displayHome();
+      break;
+
     case "view":
       displayView();
       break;
