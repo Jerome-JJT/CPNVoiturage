@@ -25,30 +25,30 @@
             </div>
 
             <div class="other-days">
-              <div class="nav-tab">
+              <div class="nav-tab" onclick="window.location='?page=monday'">
                 <strong>Lundi</strong>
               </div>
 
-              <div class="nav-tab">
+              <div class="nav-tab" onclick="window.location='?page=tuesday'">
                 <strong>Mardi</strong>
               </div>
 
-              <div class="nav-tab">
+              <div class="nav-tab" onclick="window.location='?page=wednesday'">
                 <strong>Mercredi</strong>
               </div>
 
-              <div class="nav-tab">
+              <div class="nav-tab" onclick="window.location='?page=thursday'">
                 <strong>Jeudi</strong>
               </div>
 
-              <div class="nav-tab">
+              <div class="nav-tab" onclick="window.location='?page=friday'">
                 <strong>Vendredi</strong>
               </div>
             </div>
           </div>
 
 
-          <div id="profil-button">
+          <div id="profil-button" onclick="window.location='?page=profil'">
             <strong>Profil</strong>
           </div>
         </div> <!-- END NAVI-MENU -->
