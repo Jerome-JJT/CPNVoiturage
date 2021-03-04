@@ -37,6 +37,7 @@ $endOptions = array(
   "16h55"
 );
 
+
 $profil = array(
   "city" => "Orbe",
   "monday" => array(
@@ -67,6 +68,14 @@ $profil = array(
 );
 
 
+$days = array(
+  "monday" =>     array("checkboxId" => "mondayChk",    "francais" => "lundi",    "start" => "monStart", "end" => "monEnd"),
+  "tuesday" =>    array("checkboxId" => "tuesdayChk",   "francais" => "mardi",    "start" => "tueStart", "end" => "tueEnd"),
+  "wednesday" =>  array("checkboxId" => "wednesdayChk", "francais" => "mercredi", "start" => "wedStart", "end" => "wedEnd"),
+  "thursday" =>   array("checkboxId" => "thursdayChk",  "francais" => "jeudi",    "start" => "thuStart", "end" => "thuEnd"),
+  "friday" =>     array("checkboxId" => "fridayChk",    "francais" => "vendredi", "start" => "friStart", "end" => "friEnd"),
+);
+
 ?>
 
 
@@ -89,15 +98,6 @@ $profil = array(
       <tr>
         <th>Trajet du jour</th>
 
-        <?php $days = array(
-          "monday" =>     array("checkboxId" => "mondayChk",    "francais" => "lundi",    "start" => "monStart", "end" => "monEnd"),
-          "tuesday" =>    array("checkboxId" => "tuesdayChk",   "francais" => "mardi",    "start" => "tueStart", "end" => "tueEnd"),
-          "wednesday" =>  array("checkboxId" => "wednesdayChk", "francais" => "mercredi", "start" => "wedStart", "end" => "wedEnd"),
-          "thursday" =>   array("checkboxId" => "thursdayChk",  "francais" => "jeudi",    "start" => "thuStart", "end" => "thuEnd"),
-          "friday" =>     array("checkboxId" => "fridayChk",    "francais" => "vendredi", "start" => "friStart", "end" => "friEnd"),
-        ); ?>
-
-
         <?php foreach($days as $id => $day): ?>
           <th>
             <input type="checkbox"
@@ -108,32 +108,6 @@ $profil = array(
             --><label for="<?= $day["checkboxId"] ?>">Trajet <?= $day["francais"] ?></label>
           </th>
         <?php endforeach ?>
-
-
-
-        <?php if(false == true): ?>
-          <th onclick="toggleChk('mondayChk')">
-            <input id="mondayChk" type="checkbox" onchange="toggleChk('mondayChk')" <?= $profil["monday"]["enabled"] ? "checked" : "" ?>><!--
-            --><label for="mondayChk">Trajet lundi</label>
-          </th>
-          <th onclick="toggleChk('tuesdayChk')">
-            <input id="tuesdayChk" type="checkbox" onchange="updateDay(this.id)" <?= $profil["monday"]["enabled"] ? "checked" : "" ?><!--
-            --><label for="tuesdayChk">Trajet mardi</label>
-          </th>
-          <th onclick="toggleChk('wednesdayChk')">
-            <input id="wednesdayChk" type="checkbox" onchange="updateDay(this.id)" <?= $profil["wednesday"]["enabled"] ? "checked" : "" ?><!--
-            --><label for="wednesdayChk">Trajet mercredi</label>
-          </th>
-          <th onclick="toggleChk('thursdayChk')">
-            <input id="thursdayChk" type="checkbox" onchange="updateDay(this.id)" <?= $profil["thursday"]["enabled"] ? "checked" : "" ?><!--
-            --><label for="thursdayChk">Trajet jeudi</label>
-          </th>
-          <th onclick="toggleChk('fridayChk')">
-            <input id="fridayChk" type="checkbox" onchange="updateDay(this.id)" <?= $profil["friday"]["enabled"] ? "checked" : "" ?><!--
-            --><label for="fridayChk">Trajet vendredi</label>
-          </th>
-        <?php endif ?>
-
 
       </tr>
 
@@ -157,39 +131,6 @@ $profil = array(
             </select>
           </td>
         <?php endforeach ?>
-
-        <?php if(false == true): ?>
-        <td>
-          <select id="monArr" name="monArr">
-            <option>8h00</option>
-            <option>8h50</option>
-            <option>9h50</option>
-            <option>10h35</option>
-            <option>11h30</option>
-            <option>11h30</option>
-          </select>
-        </td>
-        <td>
-          <select id="tueArr" name="tueArr">
-            <option>8h00</option>
-          </select>
-        </td>
-        <td>
-          <select id="wedArr" name="wedArr">
-            <option>8h00</option>
-          </select>
-        </td>
-        <td>
-          <select id="thuArr" name="thuArr">
-            <option>8h00</option>
-          </select>
-        </td>
-        <td>
-          <select id="friArr" name="friArr">
-            <option>8h00</option>
-          </select>
-        </td>
-      <?php endif ?>
       </tr>
 
       <tr>
