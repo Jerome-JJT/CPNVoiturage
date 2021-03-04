@@ -6,10 +6,17 @@
 }
 
 .travelCase {
-   height: 85%;
-   display: inline-block;
+  height: 85%;
+  display: inline-block;
 
-   vertical-align: top;
+  vertical-align: top;
+
+  box-sizing: border-box;
+  border: 1px solid black;
+
+  padding: 5px;
+
+  background-color: #dddddd;
 }
 
 .carTable {

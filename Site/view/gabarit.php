@@ -10,13 +10,13 @@
 
   <body>
     <div id="site">
-      <div id="title" style="height: 80px">
-        <!--<h2>CPNVoiturage</h2>-->
-        <img style="height:80px" src="view/images/PourGG.png">
-      </div>
-
-
       <div id="content">
+        <div id="title" style="height: 80px">
+          <!--<h2>CPNVoiturage</h2>-->
+          <img style="height:80px" src="view/images/PourGG.png">
+        </div>
+
+
         <div id="nav-menu">
           <div class="day-select">
 
@@ -58,13 +58,17 @@
           <div style="text-align: center; height: 30px; margin-top: 5px; font-size: 20px">
             <strong><?= $pageTitle != null ? $pageTitle : "CPNVoiturage" ?></strong>
           </div>
+          <hr>
 
           <?= $content ?>
         </div>
+
+
+        <div id="footer">
+        </div>
       </div><!-- END SITE -->
 
-      <div id="footer">
-      </div>
+
 
     </div>
   </body>
