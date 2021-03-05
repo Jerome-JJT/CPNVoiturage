@@ -5,6 +5,13 @@
   margin: 20px;
 }
 
+@media (max-width: 800px)
+{
+  #login-page
+  {
+    margin: 20px 5px;
+  }
+}
 
 #login-page h3 {
   text-align: center;
@@ -20,6 +27,7 @@
 
 .login-table input, .login-table select {
   width: 80%;
+  min-width: 120px;
   height: 28px;
 }
 
@@ -30,12 +38,12 @@
   display:inline-block;
   vertical-align:top;
 
-  margin-top: 100px;
+  margin-top: 60px;
 }
 
 .login-bar {
   width: 1%;
-  height: 90%;
+  height: 80%;
 
   display:inline-block;
   vertical-align:top;

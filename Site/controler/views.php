@@ -1,9 +1,9 @@
 <?php
 
 
-function displayHome()
+function displayLogin()
 {
-  require("view/home.php");
+  require("view/login.php");
 }
 
 function displayView()

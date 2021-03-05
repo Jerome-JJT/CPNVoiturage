@@ -1,8 +1,12 @@
 
+html {
+  overflow-y: scroll;
+}
+
 body
 {
   //background-color: red;
-  background-color: #dddddd;
+  background-color: #ffffff;
 
   font-family: Verdana;
   font-size: 14px;
@@ -15,6 +19,7 @@ body
     //background-color: #cccccc;
 
     width: 90%;
+    min-width: 550px;
 
     margin-left: 5%;
     margin-bottom: 5%;
@@ -30,6 +35,10 @@ body
 
     text-align: center;
 
+}
+#title img {
+  max-width: 400px;
+  width: 90%;
 }
 
 #content
@@ -66,6 +75,8 @@ body
 
   border: 2px solid black;
   border-radius: 20px;
+
+  box-sizing: border-box;
 }
 
 
@@ -144,36 +155,34 @@ h2
   text-align: center;
 
   background-color: #bbbbbb;
-  background-image: linear-gradient(0deg, #888888 0%, #bbbbbb 100%);
+  //background-image: linear-gradient(0deg, #888888 0%, #bbbbbb 100%);
 }
 .nav-tab:hover, .day-tab:hover {
-  background-image: linear-gradient(180deg, #aaaaaa 0%, #ffffff 100%);
-}
-
-
-.profilTable {
-  min-width: 750px;
-
   background-color: #dddddd;
-
-  border: 1px solid black;
-  border-spacing: 0;
+  //background-image: linear-gradient(180deg, #aaaaaa 0%, #ffffff 100%);
 }
 
-.profilTable th, .profilTable td {
-  width: 10%;
-  height: 40px;
-
-  border: 1px solid black;
-  text-align: center;
-}
 
 select {
   padding: 5px 10px;
 }
 
 
+@media (max-width: 700px) /* VERY SMOL */
+{
+  #site
+  {
+      width: 98%;
 
+      margin-left: 1%;
+  }
+
+  #content
+  {
+      margin-left: 1%;
+      margin-right: 1%;
+  }
+}
 @media (min-width: 800px) /* BIG */
 {
   body
@@ -218,6 +227,7 @@ select {
 
   .nav-tab {
     width: 120px;
+    height: 45px;
 
     border-left: 2px solid black;
     border-right: 2px solid black;

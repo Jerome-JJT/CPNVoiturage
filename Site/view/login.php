@@ -12,7 +12,7 @@ $pageTitle = "Connexion";
 
 <div id="login-page">
   <p style="text-align:center">
-    Merci de vous connecter...
+    Merci de vous connecter pour accéder au site
   </p>
 
   <div class="login-block">

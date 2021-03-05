@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="view/styles/styles.css">
     <link rel="stylesheet" href="view/styles/cars.css">
     <link rel="stylesheet" href="view/styles/login.css">
+    <link rel="stylesheet" href="view/styles/profil.css">
 
     <title><?= $title != null ? $title : "CPNVoiturage" ?></title>
   </head>
@@ -13,7 +14,9 @@
       <div id="content">
         <div id="title" style="height: 80px">
           <!--<h2>CPNVoiturage</h2>-->
-          <img style="height:80px" src="view/images/PourGG.png">
+          <a href="/">
+            <img src="view/images/PourGG.png">
+          </a>
         </div>
 
 
