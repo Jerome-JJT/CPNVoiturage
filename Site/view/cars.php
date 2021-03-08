@@ -23,7 +23,7 @@ $cars = array(
         "arrivalHour" => "9h00",
         "remainingPlaces" => "5",
         "passengers" => array(
-          "ABC", "DEF", "GHI", "JKM", "LPO"
+          "ABC", "DEF", "GHI", "JKM"
         )
       ),
       array(
@@ -135,7 +135,7 @@ $cars = array(
           <tr style="background-color:<?= $i%2==0 ? 'lightgray' : 'white'?>">
             <td>Place <?= $i+1 ?></td>
 
-            <td><?= $car["solo"][$i] ?></td>
+            <td><?= $cars["come"]["solo"][$i] ?></td>
 
             <?php foreach($cars["come"]["cars"] as $car): ?>
               <td><?= $car["passengers"][$i] ?></td>
@@ -160,8 +160,12 @@ $cars = array(
 </div>
 
 
+
+
 <div style="width: 90%; margin: 15px 5%; border: 4px solid black; border-radius: 50% / 80%">
 </div>
+
+
 
 
 <div class="travelDisplay">
@@ -237,7 +241,7 @@ $cars = array(
         <tr style="background-color:<?= $i%2==0 ? 'lightgray' : 'white'?>">
           <td>Place <?= $i+1 ?></td>
 
-          <td><?= $car["solo"][$i] ?></td>
+          <td><?= isset($cars["back"]["solo"][$i] ?></td>
 
           <?php foreach($cars["back"]["cars"] as $car): ?>
             <td><?= $car["passengers"][$i] ?></td>

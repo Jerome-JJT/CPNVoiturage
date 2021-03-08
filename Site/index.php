@@ -23,11 +23,11 @@ if(isset($_GET["page"]))
       break;
 
     default:
-      displayLogin();
+      displayView();
 
   }
 }
 else
 {
-  displayLogin();
+  displayView();
 }
