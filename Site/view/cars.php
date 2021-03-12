@@ -135,10 +135,10 @@ $cars = array(
           <tr style="background-color:<?= $i%2==0 ? 'lightgray' : 'white'?>">
             <td>Place <?= $i+1 ?></td>
 
-            <td><?= $cars["come"]["solo"][$i] ?></td>
+            <td><?= isset($cars["come"]["solo"][$i]) ? $cars["come"]["solo"][$i] : "" ?></td>
 
             <?php foreach($cars["come"]["cars"] as $car): ?>
-              <td><?= $car["passengers"][$i] ?></td>
+              <td><?= isset($car["passengers"][$i]) ? $car["passengers"][$i] : "" ?></td>
             <?php endforeach ?>
           </tr>
         <?php endfor ?>
@@ -241,10 +241,10 @@ $cars = array(
         <tr style="background-color:<?= $i%2==0 ? 'lightgray' : 'white'?>">
           <td>Place <?= $i+1 ?></td>
 
-          <td><?= isset($cars["back"]["solo"][$i] ?></td>
+          <td><?= isset($cars["back"]["solo"][$i]) ? $cars["back"]["solo"][$i] : "" ?></td>
 
           <?php foreach($cars["back"]["cars"] as $car): ?>
-            <td><?= $car["passengers"][$i] ?></td>
+            <td><?= isset($car["passengers"][$i]) ? $car["passengers"][$i] : "" ?></td>
           <?php endforeach ?>
         </tr>
       <?php endfor ?>
