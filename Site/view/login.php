@@ -15,27 +15,34 @@ $pageTitle = "Connexion";
     Merci de vous connecter pour accéder au site
   </p>
 
+  <p style="text-align:center; color: red">
+    <?= $errorMsg ?>
+  </p>
+
   <div class="login-block">
     <h3>Connexion</h3>
-    <table class="login-table">
-      <tr>
-        <th>Abréviation CPNV</th>
 
-        <td><input type="text"></td>
-      </tr>
-      <tr>
-        <th>Mot de passe</th>
+    <form method="POST" action="?action=loginAccount">
+      <table class="login-table">
+        <tr>
+          <th>Abréviation CPNV</th>
 
-        <td><input type="password"></td>
-      </tr>
+          <td><input type="text" name="acronym" value="<?= $acronym ?>" required></td>
+        </tr>
+        <tr>
+          <th>Mot de passe</th>
 
-      <tr>
-        <td colspan="2">
-          <button class="mybutton">Login</button>
-          <button class="mybutton">Mot de passe oublié</button>
-        </td>
-      </tr>
-    </table>
+          <td><input type="password" name="password" required></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <button type="submit" class="mybutton">Login</button>
+            <a href="mailto:jerome.jaquemet@cpnv.ch"><button type="button" class="mybutton">Mot de passe oublié</button></a>
+          </td>
+        </tr>
+      </table>
+    </form>
   </div
 
   ><div class="login-bar">
@@ -43,41 +50,42 @@ $pageTitle = "Connexion";
 
   ><div class="login-block">
     <h3>Nouveau compte</h3>
-    <table class="login-table">
-      <tr>
-        <th>Abréviation CPNV</th>
 
-        <td><input type="text"></td>
-      </tr>
-      <tr>
-        <th>Ville de passage</th>
+    <form method="POST" action="?action=createAccount">
+      <table class="login-table">
+        <tr>
+          <th>Abréviation CPNV</th>
 
-        <td>
-          <select id="villePassage" name="villePassage">
-            <option>Yverdon</option>
-            <option>Lausanne</option>
-            <option>Vuiteboeuf</option>
-            <option>Baulmes</option>
-            <option>Orbe</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Mot de passe</th>
+          <td><input type="text" name="acronym" value="<?= $acronym ?>" required></td>
+        </tr>
+        <tr>
+          <th>Ville de passage</th>
 
-        <td><input type="password"></td>
-      </tr>
-      <tr>
-        <th>Répéter le mot de passe</th>
+          <td>
+            <select name="city" required>
+              <?php foreach($citiesList as $oneCity): ?>
+                <option value="<?= $oneCity["id"] ?>" <?= $oneCity["id"] == $city ?>><?= $oneCity["name"] ?></option>
+              <?php endforeach ?>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Mot de passe</th>
 
-        <td><input type="password"></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <button class="mybutton">Créer</button>
-        </td>
-      </tr>
-    </table>
+          <td><input type="password" name="password" required></td>
+        </tr>
+        <tr>
+          <th>Répéter le mot de passe</th>
+
+          <td><input type="password" name="repeatPassword" required></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="submit" class="mybutton">Créer</button>
+          </td>
+        </tr>
+      </table>
+    </form>
   </div>
 
 
