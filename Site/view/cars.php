@@ -11,6 +11,7 @@ $pageTitle = "Lundi";
 
 );*/
 
+/*
 $cars = array(
   "come" => array(
     "solo" => array("ZYX", "WVO", "ASD", "KIU"),
@@ -21,7 +22,7 @@ $cars = array(
         "place" => "Chavo",
         "departHour" => "8h00",
         "arrivalHour" => "9h00",
-        "remainingPlaces" => "5",
+        "maxPlaces" => "5",
         "passengers" => array(
           "ABC", "DEF", "GHI", "JKM"
         )
@@ -31,7 +32,7 @@ $cars = array(
         "place" => "Laus",
         "departHour" => "10h00",
         "arrivalHour" => "11h00",
-        "remainingPlaces" => "2",
+        "maxPlaces" => "2",
         "passengers" => array(
           "ABC", "DEF"
         )
@@ -47,7 +48,7 @@ $cars = array(
         "place" => "Chavo",
         "departHour" => "16h00",
         "arrivalHour" => "17h00",
-        "remainingPlaces" => "5",
+        "maxPlaces" => "5",
         "passengers" => array(
           "ABC", "DEF"
         )
@@ -56,7 +57,7 @@ $cars = array(
 
   )
 );
-
+*/
 ?>
 
 
@@ -82,8 +83,8 @@ $cars = array(
           <th>Conducteur</th>
           <th>Seuls</th>
 
-          <?php foreach($cars["come"]["cars"] as $car): ?>
-            <th><?= $car["conductor"] ?></th>
+          <?php foreach($cars["come"]["cars"] as $key => $car): ?>
+            <th><?= $key ?></th>
           <?php endforeach ?>
         </tr>
 
@@ -92,7 +93,7 @@ $cars = array(
           <td>───</td>
 
           <?php foreach($cars["come"]["cars"] as $car): ?>
-            <td><?= $car["place"] ?></td>
+            <td><?= $car["city"] ?></td>
           <?php endforeach ?>
         </tr>
 
@@ -119,7 +120,7 @@ $cars = array(
           <td>&infin;</td>
 
           <?php foreach($cars["come"]["cars"] as $car): ?>
-            <td><?= $car["remainingPlaces"] ?></td>
+            <td><?= intval($car["maxPlaces"])-count($car["passengers"]) ?></td>
           <?php endforeach ?>
         </tr>
 
@@ -188,8 +189,8 @@ $cars = array(
         <th>Conducteur</th>
         <th>Seuls</th>
 
-        <?php foreach($cars["back"]["cars"] as $car): ?>
-          <th><?= $car["conductor"] ?></th>
+        <?php foreach($cars["back"]["cars"] as $key => $car): ?>
+          <th><?= $key ?></th>
         <?php endforeach ?>
       </tr>
 
@@ -198,7 +199,7 @@ $cars = array(
         <td>───</td>
 
         <?php foreach($cars["back"]["cars"] as $car): ?>
-          <td><?= $car["place"] ?></td>
+          <td><?= $car["city"] ?></td>
         <?php endforeach ?>
       </tr>
 
@@ -225,7 +226,7 @@ $cars = array(
         <td>&infin;</td>
 
         <?php foreach($cars["back"]["cars"] as $car): ?>
-          <td><?= $car["remainingPlaces"] ?></td>
+          <td><?= intval($car["maxPlaces"])-count($car["passengers"]) ?></td>
         <?php endforeach ?>
       </tr>
 

@@ -64,7 +64,7 @@ $pageTitle = "Connexion";
           <td>
             <select name="city" required>
               <?php foreach($citiesList as $oneCity): ?>
-                <option value="<?= $oneCity["id"] ?>" <?= $oneCity["id"] == $city ?>><?= $oneCity["name"] ?></option>
+                <option value="<?= $oneCity["id"] ?>" <?= ($oneCity["id"] == $city) ? "selected" : "" ?>><?= $oneCity["name"] ?></option>
               <?php endforeach ?>
             </select>
           </td>

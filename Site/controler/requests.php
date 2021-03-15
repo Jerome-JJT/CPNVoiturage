@@ -13,12 +13,12 @@ function getCitesList()
 
 function getCarsList($day = "mon", $direction = "come")
 {
-  /*require_once("model/dbConnector.php");
+  require_once("model/dbConnector.php");
 
   if($direction == "come")
   {
     $select = "ARR.hour AS ARR,";
-    $join = "LEFT JOIN PERIODS AS ARR ON DRIVER.monArr = ARR.id"
+    $join = "LEFT JOIN PERIODS AS ARR ON DRIVER.monArr = ARR.id";
   }
   else if($direction == "back")
   {
@@ -38,9 +38,44 @@ function getCarsList($day = "mon", $direction = "come")
   LEFT JOIN DAYS AS TRAVEL_DAY ON TRAVELS.dayId = TRAVEL_DAY.id
   LEFT JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVELS.directionId = TRAVEL_DIR.id
 
-  ".$join;
+  ".$join."
 
-  $result = executeQuerySelect($sql);
+  WHERE TRAVEL_DIR.name = :direction OR TRAVEL_DIR.name IS NULL";
 
-  return $result;*/
+  $result = executeQuerySelect($sql, array(":direction" => $direction));
+
+  return $result;
+}
+
+
+
+function getPeriodOptions($direction = "come")
+{
+  require_once("model/dbConnector.php");
+
+  $sql = "
+  SELECT PERIODS.id, PERIODS.hour FROM PERIODS
+
+  INNER JOIN DIRECTIONS ON PERIODS.directionId = DIRECTIONS.id
+
+  WHERE DIRECTIONS.name = :direction";
+
+  $result = executeQuerySelect($sql, array(":direction" => $direction));
+
+  return $result;
+}
+
+
+function getUserProfile($userId)
+{
+  require_once("model/dbConnector.php");
+
+  $sql = "
+  SELECT cityId, monArr, monDep, tueArr, tueDep, wedArr, wedDep, thuArr, thuDep, friArr, friDep FROM USERS
+
+  WHERE USERS.id = :userId";
+
+  $result = executeQuerySelect($sql, array(":userId" => $userId))[0];
+
+  return $result;
 }
