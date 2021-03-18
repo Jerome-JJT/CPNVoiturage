@@ -145,5 +145,5 @@ function displayProfil()
 
 function displayAdmin()
 {
-
+  require("view/admin.php");
 }

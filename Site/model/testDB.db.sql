@@ -1,0 +1,179 @@
+BEGIN TRANSACTION;
+DROP TABLE IF EXISTS "CITIES";
+CREATE TABLE IF NOT EXISTS "CITIES" (
+	"id"	INTEGER NOT NULL,
+	"name"	VARCHAR(50) NOT NULL DEFAULT '',
+	PRIMARY KEY("id")
+);
+DROP TABLE IF EXISTS "EDT";
+CREATE TABLE IF NOT EXISTS "EDT" (
+	"id"	INTEGER NOT NULL,
+	"acronym"	VARCHAR(5) NOT NULL DEFAULT '',
+	"monArr"	INTEGER NOT NULL DEFAULT 0,
+	"monDep"	INTEGER NOT NULL DEFAULT 0,
+	"tueArr"	INTEGER NOT NULL DEFAULT 0,
+	"tueDep"	INTEGER NOT NULL DEFAULT 0,
+	"wedArr"	INTEGER NOT NULL DEFAULT 0,
+	"wedDep"	INTEGER NOT NULL DEFAULT 0,
+	"thuArr"	INTEGER NOT NULL DEFAULT 0,
+	"thuDep"	INTEGER NOT NULL DEFAULT 0,
+	"friArr"	INTEGER NOT NULL DEFAULT 0,
+	"friDep"	INTEGER NOT NULL DEFAULT 0,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("friDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("tueArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("tueDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("wedArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("monArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("thuDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("wedDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("friArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("monDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("thuArr") REFERENCES "PERIODS"("id")
+);
+DROP TABLE IF EXISTS "CARS";
+CREATE TABLE IF NOT EXISTS "CARS" (
+	"id"	INTEGER NOT NULL,
+	"size"	INTEGER NOT NULL,
+	"driverId"	INTEGER NOT NULL,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("driverId") REFERENCES "USERS"("id")
+);
+DROP TABLE IF EXISTS "DIRECTIONS";
+CREATE TABLE IF NOT EXISTS "DIRECTIONS" (
+	"id"	INTEGER NOT NULL,
+	"name"	VARCHAR(50) NOT NULL DEFAULT '',
+	PRIMARY KEY("id")
+);
+DROP TABLE IF EXISTS "DAYS";
+CREATE TABLE IF NOT EXISTS "DAYS" (
+	"id"	INTEGER NOT NULL,
+	"name"	VARCHAR(50) NOT NULL DEFAULT '',
+	PRIMARY KEY("id")
+);
+DROP TABLE IF EXISTS "PASSENGERS";
+CREATE TABLE IF NOT EXISTS "PASSENGERS" (
+	"id"	INTEGER NOT NULL,
+	"userId"	INTEGER NOT NULL,
+	"travelId"	INTEGER NOT NULL,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("travelId") REFERENCES "TRAVELS"("id"),
+	FOREIGN KEY("userId") REFERENCES "USERS"("id")
+);
+DROP TABLE IF EXISTS "TRAVELS";
+CREATE TABLE IF NOT EXISTS "TRAVELS" (
+	"id"	INTEGER NOT NULL,
+	"dayId"	INTEGER NOT NULL DEFAULT 0,
+	"directionId"	INTEGER NOT NULL DEFAULT 0,
+	"places"	INTEGER,
+	"driverId"	INTEGER NOT NULL,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("dayId") REFERENCES "DAYS"("id"),
+	FOREIGN KEY("directionId") REFERENCES "DIRECTIONS"("id"),
+	FOREIGN KEY("driverId") REFERENCES "USERS"("id")
+);
+DROP TABLE IF EXISTS "PERIODS";
+CREATE TABLE IF NOT EXISTS "PERIODS" (
+	"id"	INTEGER NOT NULL,
+	"hour"	VARCHAR(50) NOT NULL DEFAULT '',
+	"directionId"	INTEGER,
+	PRIMARY KEY("id")
+);
+DROP TABLE IF EXISTS "USERS";
+CREATE TABLE IF NOT EXISTS "USERS" (
+	"id"	INTEGER NOT NULL,
+	"acronym"	VARCHAR(5) NOT NULL DEFAULT NULL,
+	"password"	VARCHAR(256) NOT NULL DEFAULT '0',
+	"cityId"	INTEGER NOT NULL DEFAULT 0,
+	"monArr"	INTEGER DEFAULT 0,
+	"monDep"	INTEGER DEFAULT 0,
+	"tueArr"	INTEGER DEFAULT 0,
+	"tueDep"	INTEGER DEFAULT 0,
+	"wedArr"	INTEGER DEFAULT 0,
+	"wedDep"	INTEGER DEFAULT 0,
+	"thuArr"	INTEGER DEFAULT 0,
+	"thuDep"	INTEGER DEFAULT 0,
+	"friArr"	INTEGER DEFAULT 0,
+	"friDep"	INTEGER DEFAULT 0,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("thuDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("tueDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("wedDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("tueArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("cityId") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("thuArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("friDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("wedArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("monArr") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("monDep") REFERENCES "PERIODS"("id"),
+	FOREIGN KEY("friArr") REFERENCES "PERIODS"("id")
+);
+INSERT INTO "CITIES" ("id","name") VALUES (1,'Yverdon'),
+ (2,'Lausanne'),
+ (3,'Vuiteboeuf'),
+ (4,'Baulmes'),
+ (5,'Orbe');
+INSERT INTO "EDT" ("id","acronym","monArr","monDep","tueArr","tueDep","wedArr","wedDep","thuArr","thuDep","friArr","friDep") VALUES (1,'JJT',1,15,1,15,1,15,1,15,1,15),
+ (2,'KTT',1,17,2,17,1,15,2,17,1,15),
+ (3,'MPI',1,17,2,17,1,15,2,17,1,15),
+ (4,'ABC',1,17,2,17,1,15,2,17,1,15),
+ (5,'DEF',1,17,2,17,1,15,2,17,1,15),
+ (6,'GHI',1,17,2,17,1,15,2,17,1,15);
+INSERT INTO "CARS" ("id","size","driverId") VALUES (1,5,1);
+INSERT INTO "DIRECTIONS" ("id","name") VALUES (1,'come'),
+ (2,'back');
+INSERT INTO "DAYS" ("id","name") VALUES (1,'Mon'),
+ (2,'Tue'),
+ (3,'Wed'),
+ (4,'Thu'),
+ (5,'Fri');
+INSERT INTO "PASSENGERS" ("id","userId","travelId") VALUES (1,2,1),
+ (2,3,1),
+ (3,4,1),
+ (4,5,1),
+ (5,2,2),
+ (6,3,2);
+INSERT INTO "TRAVELS" ("id","dayId","directionId","places","driverId") VALUES (1,1,1,5,1),
+ (2,1,2,5,1),
+ (3,2,1,4,1),
+ (4,2,2,3,1),
+ (5,3,1,5,5);
+INSERT INTO "PERIODS" ("id","hour","directionId") VALUES (1,'8h00',1),
+ (2,'8h50',1),
+ (3,'9h50',1),
+ (4,'10h40',1),
+ (5,'11h30',1),
+ (6,'13h30',1),
+ (7,'14h20',1),
+ (8,'15h20',1),
+ (9,'16h10',1),
+ (10,'8h45',2),
+ (11,'9h35',2),
+ (12,'10h35',2),
+ (13,'11h45',2),
+ (14,'12h15',2),
+ (15,'14h15',2),
+ (16,'15h05',2),
+ (17,'16h10',2),
+ (18,'16h55',2),
+ (19,'8h00',1);
+INSERT INTO "USERS" ("id","acronym","password","cityId","monArr","monDep","tueArr","tueDep","wedArr","wedDep","thuArr","thuDep","friArr","friDep") VALUES (1,'WEBMASTER','$2y$10$XX95.0XyLWkBBX0qQPCEm.E4JTnt29K0gQkPKELHE9my9hPMG.XwO',3,5,10,10,15,1,15,1,15,1,15),
+ (2,'KTT','4321',2,1,17,2,17,1,15,2,17,1,15),
+ (3,'MPI','4321',3,1,17,2,17,1,15,2,17,1,15),
+ (4,'ABC','4321',3,1,17,2,17,1,15,2,17,1,15),
+ (5,'DEF','4321',3,1,17,2,17,1,15,2,17,1,15),
+ (6,'GHI','4321',3,1,17,2,17,1,15,2,17,1,15),
+ (7,'aaa','1234',1,1,2,1,2,1,2,1,2,1,2),
+ (8,'AAA','bbb',1,1,2,1,2,1,2,1,2,1,2),
+ (9,'BBB','1234',1,1,2,1,2,1,2,1,2,1,2),
+ (10,'AAA','123',1,1,2,1,2,1,2,1,2,1,2),
+ (11,'CCC','123',1,1,2,1,2,1,2,1,2,1,2),
+ (12,'ZZZ','123',1,1,2,1,2,1,2,1,2,1,2),
+ (13,'YYY','1234',1,1,2,1,2,1,2,1,2,1,2),
+ (14,'TTT','123',1,1,2,1,2,1,2,1,2,1,2),
+ (15,'UUU','$2y$10$4I2vL1o.7C/DoQxnn06u6.p4M7FH.A1QieFaibTa4cpyCkSfh4jEi',1,1,2,1,2,1,2,1,2,1,2),
+ (16,'aaaaa','33',5,1,2,1,2,1,2,1,2,1,2),
+ (17,'aaaaa','33',4,1,2,1,2,1,2,1,2,1,2),
+ (18,'NNNN','$2y$10$w/xt.csb3pWPx0pVon8fROiA8yxJ6f99xZmUWFQewP2OFz1/UX616',3,1,2,1,2,1,2,1,2,1,2),
+ (19,'TTTTTT','$2y$10$XX95.0XyLWkBBX0qQPCEm.E4JTnt29K0gQkPKELHE9my9hPMG.XwO',1,1,2,1,2,1,2,1,2,1,2);
+COMMIT;

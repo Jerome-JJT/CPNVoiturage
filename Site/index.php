@@ -5,21 +5,31 @@ require("controler/views.php");
 require("controler/actions.php");
 
 $logged = isset($_SESSION["id"]);
-print_r($_SESSION);
+$isAdmin = $logged && $_SESSION["id"] == 1;
 
-if(isset($_GET["action"]))
+//print_r($_SESSION);
+
+
+if(isset($_GET["admin"]) && $logged && $isAdmin)
+{
+  displayAdmin();
+  exit();
+}
+else if(isset($_GET["action"]) && $logged && $isAdmin)
 {
   switch($_GET["action"])
   {
-    case "createAccount":
-      createAccount($_POST);
+    case "validateEDT":
+      validateEDT($_POST);
       break;
 
-    case "loginAccount":
-      loginAccount($_POST);
+    case "executeEDT":
+      executeEDT();
       break;
   }
 }
+
+
 
 if(isset($_GET["action"]) && $logged)
 {
@@ -28,12 +38,6 @@ if(isset($_GET["action"]) && $logged)
 
   }
 }
-
-if(isset($_GET["admin"]) && $logged && $_SESSION["id"] == 1)
-{
-    displayAdmin();
-}
-
 else if(isset($_GET["page"]) && $logged)
 {
   switch($_GET["page"])
@@ -51,10 +55,24 @@ else if(isset($_GET["page"]) && $logged)
 
   }
 }
-
 else if($logged)
 {
   displayView();
+}
+
+
+else if(isset($_GET["action"]))
+{
+  switch($_GET["action"])
+  {
+    case "createAccount":
+      createAccount($_POST);
+      break;
+
+    case "loginAccount":
+      loginAccount($_POST);
+      break;
+  }
 }
 else
 {
