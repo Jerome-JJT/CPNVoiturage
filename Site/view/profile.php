@@ -5,6 +5,8 @@ ob_start();
 $title = "CPNVoiturage - Profil";
 $pageTitle = "Profil";
 
+
+/*
 $cityOptions = array(
   "Yverdon",
   "Lausanne",
@@ -66,7 +68,7 @@ $profil = array(
     "endWork" => "16h00"
   )
 );
-
+*/
 
 $days = array(
   "monday" =>     array("checkboxId" => "mondayChk",    "francais" => "lundi",    "start" => "monStart", "end" => "monEnd"),
@@ -86,8 +88,8 @@ $days = array(
     <strong style="font-size: 16px">Ville de passage</strong>
   </label>
   <select id="villePassage" name="villePassage" autocomplete="off">
-    <?php foreach($cityOptions as $city): ?>
-      <option value="<?=$city?>" <?= $city==$profil["city"] ? "selected='selected'" : "" ?>><?=$city?></option>
+    <?php foreach($cityOptions as $oneCity): ?>
+      <option value="<?= $oneCity["id"] ?>" <?= ($oneCity["id"] == $profil["city"]) ? "selected" : "" ?>><?= $oneCity["name"] ?></option>
     <?php endforeach ?>
   </select>
   <br>
@@ -112,7 +114,7 @@ $days = array(
       </tr>
 
       <tr>
-        <th>Heure de fin</th>
+        <th>Heure de début</th>
 
         <?php foreach($days as $id => $day): ?>
           <td>
@@ -122,10 +124,10 @@ $days = array(
 
               <?php foreach($startOptions as $start): ?>
                 <option
-                  name="<?= $start ?>"
-                  <?= $profil[$id]["startWork"]==$start ? "selected" : "" ?>>
+                  name="<?= $start["id"] ?>"
+                  <?= $profil[$id]["startWork"]==$start["id"] ? "selected" : "" ?>>
 
-                  <?= $start ?>
+                  <?= $start["hour"] ?>
                 </option>
               <?php endforeach ?>
             </select>
@@ -134,19 +136,19 @@ $days = array(
       </tr>
 
       <tr>
-        <th>Heure de début</th>
+        <th>Heure de fin</th>
         <?php foreach($days as $id => $day): ?>
           <td>
             <select autocomplete="off"
               id="<?= $day["end"] ?>"
               name="<?= $day["end"] ?>">
 
-              <?php foreach($startOptions as $start): ?>
+              <?php foreach($endOptions as $end): ?>
                 <option
-                  name="<?= $start ?>"
-                  <?= $profil[$id]["endWork"]==$start ? "selected" : "" ?>>
+                  name="<?= $end ?>"
+                  <?= $profil[$id]["endWork"]==$end["id"] ? "selected" : "" ?>>
 
-                  <?= $start ?>
+                  <?= $end["hour"] ?>
                 </option>
               <?php endforeach ?>
             </select>
