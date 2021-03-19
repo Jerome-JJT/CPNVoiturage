@@ -51,6 +51,9 @@
           </div>
 
 
+          <div id="profil-button" onclick="window.location='?action=signout'">
+            <strong>Quitter</strong>
+          </div>
           <div id="profil-button" onclick="window.location='?page=profil'">
             <strong>Profil</strong>
           </div>

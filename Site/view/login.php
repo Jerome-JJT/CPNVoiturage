@@ -56,7 +56,7 @@ $pageTitle = "Connexion";
         <tr>
           <th>Abréviation CPNV</th>
 
-          <td><input type="text" name="acronym" value="<?= $acronym ?>" required></td>
+          <td><input type="text" name="acronym" value="<?= $acronym ?>" maxlength="3" required></td>
         </tr>
         <tr>
           <th>Ville de passage</th>
