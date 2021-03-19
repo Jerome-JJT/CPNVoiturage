@@ -10,12 +10,14 @@ function displayLogin($errorMsg = "", $acronym = "", $city = "")
   require("view/login.php");
 }
 
-function displayView()
+function displayView($day = "mon")
 {
   require_once("controler/requests.php");
 
-  $comePass = getCarsList("mon", "come");
-  $backPass = getCarsList("mon", "back");
+  $comePass = getCarsList($day, "come");
+  $backPass = getCarsList($day , "back");
+
+  print_r($comePass);
 
   $cars = array(
     "come" => array(
@@ -75,7 +77,6 @@ function displayView()
       );
     }
   }
-
 
 
   require("view/cars.php");

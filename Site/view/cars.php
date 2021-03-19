@@ -5,59 +5,7 @@ ob_start();
 $title = "Voitures - Lundi";
 $pageTitle = "Lundi";
 
-
-/*$myCar = array(
-
-
-);*/
-
-/*
-$cars = array(
-  "come" => array(
-    "solo" => array("ZYX", "WVO", "ASD", "KIU"),
-
-    "cars" => array(
-      array(
-        "conductor" => "DWZ",
-        "place" => "Chavo",
-        "departHour" => "8h00",
-        "arrivalHour" => "9h00",
-        "maxPlaces" => "5",
-        "passengers" => array(
-          "ABC", "DEF", "GHI", "JKM"
-        )
-      ),
-      array(
-        "conductor" => "MWA",
-        "place" => "Laus",
-        "departHour" => "10h00",
-        "arrivalHour" => "11h00",
-        "maxPlaces" => "2",
-        "passengers" => array(
-          "ABC", "DEF"
-        )
-      )
-    ),
-  ),
-  "back" => array(
-    "solo" => array(),
-
-    "cars" => array(
-      array(
-        "conductor" => "DWZ",
-        "place" => "Chavo",
-        "departHour" => "16h00",
-        "arrivalHour" => "17h00",
-        "maxPlaces" => "5",
-        "passengers" => array(
-          "ABC", "DEF"
-        )
-      )
-    )
-
-  )
-);
-*/
+print_r($cars["come"]);
 ?>
 
 
