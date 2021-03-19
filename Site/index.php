@@ -2,10 +2,13 @@
 
 session_start();
 require("controler/views.php");
+
 require("controler/actions.php");
+require("controler/accountActions.php");
+require("controler/adminActions.php");
 
 $logged = isset($_SESSION["id"]);
-$isAdmin = $logged && $_SESSION["id"] == 1;
+$isAdmin = $logged && strlen($_SESSION["acro"]) > 3;
 
 //print_r($_SESSION);
 
@@ -35,15 +38,33 @@ if(isset($_GET["action"]) && $logged)
 {
   switch($_GET["action"])
   {
-
+    case "signout":
+      signOut();
+      break;
   }
 }
 else if(isset($_GET["page"]) && $logged)
 {
   switch($_GET["page"])
   {
-    case "view":
-      displayView();
+    case "monday":
+      displayView("mon");
+      break;
+
+    case "tuesday":
+      displayView("tue");
+      break;
+
+    case "wednesday":
+      displayView("wed");
+      break;
+
+    case "thursday":
+      displayView("thu");
+      break;
+
+    case "friday":
+      displayView("fri");
       break;
 
     case "profil":
@@ -51,7 +72,7 @@ else if(isset($_GET["page"]) && $logged)
       break;
 
     default:
-      displayView();
+      displayView("mon");
 
   }
 }
