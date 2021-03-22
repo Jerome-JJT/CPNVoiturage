@@ -31,8 +31,8 @@ print_r($cars["come"]);
           <th>Conducteur</th>
           <th>Seuls</th>
 
-          <?php foreach($cars["come"]["cars"] as $key => $car): ?>
-            <th><?= $key ?></th>
+          <?php foreach($cars["come"]["cars"] as $car): ?>
+            <th><?= $car["driver"] ?></th>
           <?php endforeach ?>
         </tr>
 

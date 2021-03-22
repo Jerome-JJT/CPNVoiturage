@@ -14,10 +14,12 @@ function displayView($day = "mon")
 {
   require_once("controler/requests.php");
 
-  $comePass = getCarsList($day, "come");
-  $backPass = getCarsList($day , "back");
+  $comeCars = getCarsList($day, "come");
+  $comePass = getPassengersList($day, "come");
 
-  print_r($comePass);
+  $backCars = getCarsList($day , "back");
+  $backPass = getPassengersList($day , "back");
+
 
   $cars = array(
     "come" => array(
@@ -30,51 +32,53 @@ function displayView($day = "mon")
     )
   );
 
-  //print_r("<br><br>");
-  //print_r($comePass);
 
+
+  foreach ($comeCars as $driver)
+  {
+    $cars["come"]["cars"][$driver["id"]] = array(
+      "driver" => $driver["DRIVER_ACRO"],
+      "city" => $driver["DRIVER_CITY"],
+      "departHour" => "8h00",
+      "arrivalHour" => $driver["HOUR"],
+      "maxPlaces" => $driver["places"],
+      "passengers" => array()
+    );
+  }
 
   foreach ($comePass as $passenger)
   {
-    if($passenger["DRIVER_ACRO"] == null)
+    if($passenger["travelId"] != null)
     {
-      array_push($cars["come"]["solo"], $passenger["PASS_ACRO"]);
+      array_push($cars["come"]["cars"][$passenger["travelId"]]["passengers"], $passenger["acronym"]);
     }
-    else if(isset($cars["come"]["cars"][$passenger["DRIVER_ACRO"]]))
+    else
     {
-      array_push($cars["come"]["cars"][$passenger["DRIVER_ACRO"]]["passengers"], $passenger["PASS_ACRO"]);
+      array_push($cars["come"]["solo"], $passenger["acronym"]);
     }
-    else if(!isset($cars["come"]["cars"][$passenger["DRIVER_ACRO"]]))
-    {
-      $cars["come"]["cars"][$passenger["DRIVER_ACRO"]] = array(
-        "city" => $passenger["DRIVER_CITY"],
-        "departHour" => "8h00",
-        "arrivalHour" => $passenger["ARR"],
-        "maxPlaces" => $passenger["places"],
-        "passengers" => array($passenger["PASS_ACRO"])
-      );
-    }
+  }
+
+  foreach ($backCars as $passenger)
+  {
+    $cars["back"]["cars"][$passenger["id"]] = array(
+      "driver" => $passenger["DRIVER_ACRO"],
+      "city" => $passenger["DRIVER_CITY"],
+      "departHour" => $passenger["HOUR"],
+      "arrivalHour" => "17h00",
+      "maxPlaces" => $passenger["places"],
+      "passengers" => array()
+    );
   }
 
   foreach ($backPass as $passenger)
   {
-    if($passenger["DRIVER_ACRO"] == null)
+    if($passenger["travelId"] != null)
     {
-      array_push($cars["back"]["solo"], $passenger["PASS_ACRO"]);
+      array_push($cars["back"]["cars"][$passenger["travelId"]]["passengers"], $passenger["acronym"]);
     }
-    else if(isset($cars["back"]["cars"][$passenger["DRIVER_ACRO"]]))
+    else
     {
-      array_push($cars["back"]["cars"][$passenger["DRIVER_ACRO"]]["passengers"], $passenger["PASS_ACRO"]);
-    }
-    else if(!isset($cars["back"]["cars"][$passenger["DRIVER_ACRO"]]))
-    {
-      $cars["back"]["cars"][$passenger["DRIVER_ACRO"]] = array(
-        "city" => $passenger["DRIVER_CITY"],
-        "departHour" => $passenger["DEP"],
-        "arrivalHour" => "17h00",
-        "maxPlaces" => $passenger["places"],
-        "passengers" => array($passenger["PASS_ACRO"])
-      );
+      array_push($cars["back"]["solo"], $passenger["acronym"]);
     }
   }
 

@@ -10,6 +10,59 @@ function getCitesList()
 
   return $result;
 }
+/*
+function getCarsList($day = "mon", $direction = "come")
+{
+  require_once("model/dbConnector.php");
+
+  if($direction == "come")
+  {
+    $dayDir = $day."Arr";
+  }
+  else if($direction == "back")
+  {
+    $dayDir = $day."Dep";
+  }
+
+  $sql = "SELECT TRAVELS.id, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY, TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, TRAVELS.places,
+  PERIODS.hour AS HOUR FROM USERS
+
+  INNER JOIN TRAVELS ON TRAVELS.driverId = USERS.id
+
+  INNER JOIN USERS AS DRIVER ON DRIVER.id = TRAVELS.driverId
+  INNER JOIN CITIES AS DRIVER_CITY ON DRIVER_CITY.id = DRIVER.cityId
+
+  INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
+  INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
+
+  INNER JOIN PERIODS ON PERIODS.id = DRIVER.".$dayDir."
+
+  WHERE TRAVEL_DIR.name = :direction AND TRAVEL_DAY.name = :day";
+
+  $drivers = executeQuerySelect($sql, array(":direction" => $direction, ":day" => ucfirst($day)));
+
+
+
+  $sql = "SELECT USERS.acronym, DAY_PASS.travelId FROM USERS
+
+  LEFT JOIN
+  (SELECT * FROM PASSENGERS
+  INNER JOIN TRAVELS ON TRAVELS.id = PASSENGERS.travelId
+
+  INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
+  INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
+
+  WHERE TRAVEL_DIR.name = :direction AND TRAVEL_DAY.name = :day)
+
+  AS DAY_PASS ON DAY_PASS.userId = USERS.id";
+
+  $users = executeQuerySelect($sql, array(":direction" => $direction, ":day" => ucfirst($day)));
+
+
+
+  return array("d" => $drivers, "u" => $users);
+}*/
+
 
 function getCarsList($day = "mon", $direction = "come")
 {
@@ -17,99 +70,51 @@ function getCarsList($day = "mon", $direction = "come")
 
   if($direction == "come")
   {
-    $select = "ARR.hour AS ARR,";
-    $join = "LEFT JOIN PERIODS AS ARR ON DRIVER.".$day."Arr = ARR.id";
+    $dayDir = $day."Arr";
   }
   else if($direction == "back")
   {
-    $select = "DEP.hour AS DEP,";
-    $join = "LEFT JOIN PERIODS AS DEP ON DRIVER.".$day."Dep = DEP.id";
+    $dayDir = $day."Dep";
   }
 
+  $sql = "SELECT TRAVELS.id, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY, TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, TRAVELS.places,
+  PERIODS.hour AS HOUR FROM USERS
 
-  /*$sql = "
-  SELECT TRAVELS.id, USERS.acronym AS PASS_ACRO, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY,
-  TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, ".$select." TRAVELS.places FROM USERS
+  INNER JOIN TRAVELS ON TRAVELS.driverId = USERS.id
 
-  LEFT JOIN PASSENGERS ON USERS.id = PASSENGERS.userId
-  LEFT JOIN TRAVELS ON PASSENGERS.travelId = TRAVELS.id
-  LEFT JOIN USERS AS DRIVER ON TRAVELS.driverId = DRIVER.id
-  LEFT JOIN CITIES AS DRIVER_CITY ON DRIVER.cityId = DRIVER_CITY.id
+  INNER JOIN USERS AS DRIVER ON DRIVER.id = TRAVELS.driverId
+  INNER JOIN CITIES AS DRIVER_CITY ON DRIVER_CITY.id = DRIVER.cityId
 
-  LEFT JOIN DAYS AS TRAVEL_DAY ON TRAVELS.dayId = TRAVEL_DAY.id
-  LEFT JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVELS.directionId = TRAVEL_DIR.id
+  INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
+  INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
 
-  ".$join."
+  INNER JOIN PERIODS ON PERIODS.id = DRIVER.".$dayDir."
 
-  WHERE (TRAVEL_DAY = :day OR TRAVEL_DAY.name IS NULL) AND
-  (TRAVEL_DIR.name = :direction OR TRAVEL_DIR.name IS NULL)";*/
-
-
-  $sql = "SELECT USERS.acronym AS PASS_ACRO, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY,
-    TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, ".$select." TRAVELS.places FROM TRAVELS
-
-    INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
-    INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
-
-    INNER JOIN USERS AS DRIVER ON DRIVER.id = TRAVELS.driverId
-    INNER JOIN CITIES AS DRIVER_CITY ON DRIVER_CITY.id = DRIVER.cityId
-
-    LEFT JOIN PASSENGERS ON PASSENGERS.travelId = TRAVELS.id
-    LEFT JOIN USERS ON USERS.id = PASSENGERS.userId
-
-    ".$join."
-
-    WHERE (TRAVEL_DAY = :day OR TRAVEL_DAY.name IS NULL) AND (TRAVEL_DIR.name = :direction OR TRAVEL_DIR.name IS NULL)";
-
-
-
-
-    $sql = "SELECT USERS.acronym AS PASS_ACRO, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY,
-      TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, ".$select." TRAVELS.places FROM USERS
-
-      INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
-      INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
-
-      INNER JOIN USERS AS DRIVER ON DRIVER.id = TRAVELS.driverId
-      INNER JOIN CITIES AS DRIVER_CITY ON DRIVER_CITY.id = DRIVER.cityId
-
-      LEFT JOIN PASSENGERS ON PASSENGERS.travelId = TRAVELS.id
-      LEFT JOIN USERS ON USERS.id = PASSENGERS.userId
-
-      ".$join."
-
-      WHERE (TRAVEL_DAY = :day OR TRAVEL_DAY.name IS NULL) AND (TRAVEL_DIR.name = :direction OR TRAVEL_DIR.name IS NULL)";
-
-
-  /*$sql = "SELECT USERS.acronym AS PASS_ACRO, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY,
-    TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, ".$select." TRAVELS.places FROM TRAVELS
-
-    INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
-    INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
-
-    INNER JOIN USERS AS DRIVER ON DRIVER.id = TRAVELS.driverId
-    INNER JOIN CITIES AS DRIVER_CITY ON DRIVER_CITY.id = DRIVER.cityId
-
-    LEFT JOIN PASSENGERS ON PASSENGERS.travelId = TRAVELS.id
-    LEFT JOIN USERS ON USERS.id = PASSENGERS.userId
-
-    ".$join."
-
-    WHERE (TRAVEL_DAY = :day OR TRAVEL_DAY.name IS NULL) AND (TRAVEL_DIR.name = :direction OR TRAVEL_DIR.name IS NULL)
-
-    UNION
-
-    SELECT USERS.acronym, NULL AS DRIVER_ACRO, NULL AS DRIVER_CITY,
-    NULL AS TRAVEL_DAY, NULL AS TRAVEL_DIR, NULL AS ARR, NULL AS places FROM USERS
-
-    LEFT JOIN PASSENGERS ON PASSENGERS.userId = USERS.id
-    LEFT JOIN TRAVELS ON TRAVELS.driverId = USERS.id
-
-    WHERE PASSENGERS.id IS NULL AND TRAVELS.driverId IS NULL
-    ";*/
+  WHERE TRAVEL_DIR.name = :direction AND TRAVEL_DAY.name = :day";
 
   $result = executeQuerySelect($sql, array(":direction" => $direction, ":day" => ucfirst($day)));
 
+  return $result;
+}
+
+function getPassengersList($day = "mon", $direction = "come")
+{
+  require_once("model/dbConnector.php");
+
+  $sql = "SELECT USERS.acronym, DAY_PASS.travelId FROM USERS
+
+  LEFT JOIN
+  (SELECT * FROM PASSENGERS
+  INNER JOIN TRAVELS ON TRAVELS.id = PASSENGERS.travelId
+
+  INNER JOIN DAYS AS TRAVEL_DAY ON TRAVEL_DAY.id = TRAVELS.dayId
+  INNER JOIN DIRECTIONS AS TRAVEL_DIR ON TRAVEL_DIR.id = TRAVELS.directionId
+
+  WHERE TRAVEL_DIR.name = :direction AND TRAVEL_DAY.name = :day)
+
+  AS DAY_PASS ON DAY_PASS.userId = USERS.id";
+
+  $result = executeQuerySelect($sql, array(":direction" => $direction, ":day" => ucfirst($day)));
 
   return $result;
 }
