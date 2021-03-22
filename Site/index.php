@@ -41,6 +41,14 @@ if(isset($_GET["action"]) && $logged)
     case "signout":
       signOut();
       break;
+
+    case "joinCar":
+      if(isset($_GET["travel"]))
+      {
+        joinCar($_GET["travel"]);
+      }
+    else { header("Location:/"); }
+      break;
   }
 }
 else if(isset($_GET["page"]) && $logged)

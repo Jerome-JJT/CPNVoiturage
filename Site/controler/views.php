@@ -14,11 +14,19 @@ function displayView($day = "mon")
 {
   require_once("controler/requests.php");
 
+  $userId = $_SESSION["id"];
+  $userAcro = $_SESSION["acro"];
+
   $comeCars = getCarsList($day, "come");
   $comePass = getPassengersList($day, "come");
 
   $backCars = getCarsList($day , "back");
   $backPass = getPassengersList($day , "back");
+
+  //print_r($comeCars); echo("<br><br>");
+  //print_r($comePass); echo("<br><br>");
+
+  //print_r(array_column($comeCars, "DRIVER_ID"));
 
 
   $cars = array(
@@ -48,6 +56,11 @@ function displayView($day = "mon")
 
   foreach ($comePass as $passenger)
   {
+    if(in_array($passenger["USER_ID"], array_column($comeCars, "DRIVER_ID")))
+    {
+      continue;
+    }
+
     if($passenger["travelId"] != null)
     {
       array_push($cars["come"]["cars"][$passenger["travelId"]]["passengers"], $passenger["acronym"]);
@@ -72,6 +85,11 @@ function displayView($day = "mon")
 
   foreach ($backPass as $passenger)
   {
+    if(in_array($passenger["USER_ID"], array_column($backCars, "DRIVER_ID")))
+    {
+      continue;
+    }
+
     if($passenger["travelId"] != null)
     {
       array_push($cars["back"]["cars"][$passenger["travelId"]]["passengers"], $passenger["acronym"]);
@@ -82,9 +100,35 @@ function displayView($day = "mon")
     }
   }
 
+  $userConf = array(
+    "come" => array(
+      "isDriver" => false,
+      "isInCar" => true
+    ),
+    "back" => array(
+      "isDriver" => true,
+      "isInCar" => false
+    )
+  );
 
+  $userConf["come"]["isDriver"] = array_search($userId, array_column($comeCars, "DRIVER_ID"));
+  if($userConf["come"]["isDriver"] !== false){ $userConf["come"]["isDriver"] = $comeCars[$userConf["come"]["isDriver"]]; }
+
+  $userConf["back"]["isDriver"] = array_search($userId, array_column($backCars, "DRIVER_ID"));
+  if($userConf["back"]["isDriver"] !== false){ $userConf["back"]["isDriver"] = $comeCars[$userConf["back"]["isDriver"]]; }
+
+
+
+  $userConf["come"]["isInCar"] = $comePass[array_search($userAcro, array_column($comePass, "acronym"))]["travelId"] != null;
+  $userConf["back"]["isInCar"] = $backPass[array_search($userAcro, array_column($backPass, "acronym"))]["travelId"] != null;
+
+/*$userAcro
+  $userConf["come"]["isDriver"] = in_array($userId, array_column($comeCars, "USER_ID"));
+  $userConf["back"]["isDriver"] = in_array($userId, array_column($backCars, "USER_ID"));
+*/
   require("view/cars.php");
 }
+
 
 function displayProfil()
 {
@@ -113,36 +157,6 @@ function displayProfil()
       "endWork" => ($userProfil[$key."Dep"])
     );
   }
-
-  /*$profil = array(
-    "city" => "Orbe",
-    "monday" => array(
-      "enabled" => true,
-      "startWork" => "10h40",
-      "endWork" => "16h00"
-    ),
-    "tuesday" => array(
-      "enabled" => false,
-      "startWork" => "8h00",
-      "endWork" => "16h00"
-    ),
-    "wednesday" => array(
-      "enabled" => true,
-      "startWork" => "13h30",
-      "endWork" => "16h00"
-    ),
-    "thursday" => array(
-      "enabled" => false,
-      "startWork" => "8h00",
-      "endWork" => "16h10"
-    ),
-    "friday" => array(
-      "enabled" => true,
-      "startWork" => "8h00",
-      "endWork" => "16h00"
-    )
-  );*/
-
 
   require("view/profile.php");
 }

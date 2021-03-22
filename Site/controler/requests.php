@@ -77,7 +77,7 @@ function getCarsList($day = "mon", $direction = "come")
     $dayDir = $day."Dep";
   }
 
-  $sql = "SELECT TRAVELS.id, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY, TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, TRAVELS.places,
+  $sql = "SELECT TRAVELS.id, DRIVER.id AS DRIVER_ID, DRIVER.acronym AS DRIVER_ACRO, DRIVER_CITY.name AS DRIVER_CITY, TRAVEL_DAY.name AS TRAVEL_DAY, TRAVEL_DIR.name AS TRAVEL_DIR, TRAVELS.places,
   PERIODS.hour AS HOUR FROM USERS
 
   INNER JOIN TRAVELS ON TRAVELS.driverId = USERS.id
@@ -101,7 +101,7 @@ function getPassengersList($day = "mon", $direction = "come")
 {
   require_once("model/dbConnector.php");
 
-  $sql = "SELECT USERS.acronym, DAY_PASS.travelId FROM USERS
+  $sql = "SELECT USERS.id AS USER_ID, USERS.acronym, DAY_PASS.travelId FROM USERS
 
   LEFT JOIN
   (SELECT * FROM PASSENGERS
