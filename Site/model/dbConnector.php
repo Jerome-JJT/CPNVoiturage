@@ -37,7 +37,7 @@ function openDBConnexion()
 {
   try
   {
-    $pdo = new PDO('sqlite:model/testDB.db');
+    $pdo = new PDO('sqlite:../data/testDB.db');
   }
     catch (PDOException $exception)
   {

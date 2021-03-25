@@ -50,10 +50,11 @@
             </div>
           </div>
 
-
-          <div id="profil-button" onclick="window.location='?action=signout'">
-            <strong>Quitter</strong>
-          </div>
+          <?php if(isset($_SESSION["id"])): ?>
+            <div id="profil-button" onclick="window.location='?action=signout'">
+              <strong>Quitter</strong>
+            </div>
+          <?php endif ?>
           <?php if(isset($_SESSION["id"])): ?>
             <div id="profil-button" onclick="window.location='?page=profil'">
               <strong>Profil</strong>
