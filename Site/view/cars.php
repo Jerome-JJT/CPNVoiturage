@@ -26,8 +26,6 @@ switch($_GET["page"])
 $title = "Voitures - ".$day;
 $pageTitle = $day;
 
-//print_r($userConf);
-
 ?>
 
 
@@ -70,6 +68,26 @@ $pageTitle = $day;
 
     ><div class="travelCase" style="width: 65%; overflow: scroll">
       <table class="carTable">
+        <tr style="background-color:<?= $maxLines%2==0 ? 'lightgray' : 'white'?>">
+          <th style="">Actions</th>
+          <td style="">
+            <?php if($userConf["come"]["isInCar"] == true && $userConf["come"]["isDriver"] == false): ?>
+              <button class="mybutton" onclick="window.location='/?action=quitCar&dir=come&day=<?= substr($_GET["page"],0,3) ?>'">Quitter</button>
+            <?php endif ?>
+          </td>
+
+
+          <?php foreach($cars["come"]["cars"] as $id => $car): ?>
+            <td style="">
+              <?php if($userConf["come"]["isInCar"] == false && $userConf["come"]["isDriver"] == false && intval($car["maxPlaces"])-count($car["passengers"]) > 0): ?>
+                <?php $color = (($car["arrivalId"] == $userProfil[$_GET["page"]."Arr"] && $car["cityId"] == $userProfil["cityId"]) ? "red" : "white") ?>
+
+                <button class="mybutton" style="background-color:<?=$color?>" onclick="window.location='/?action=joinCar&travel=<?=$id?>&day=<?= substr($_GET["page"],0,3) ?>'">Rejoindre</button>
+              <?php endif ?>
+            </td>
+          <?php endforeach ?>
+        </tr>
+
         <tr style="background-color:lightgray">
           <th>Conducteur</th>
           <th>Seuls</th>
@@ -125,27 +143,6 @@ $pageTitle = $day;
             <?php endforeach ?>
           </tr>
         <?php endfor ?>
-
-
-
-
-        <tr style="background-color:<?= $maxLines%2==0 ? 'lightgray' : 'white'?>">
-          <th style="">Actions</th>
-          <td style="">
-            <?php if($userConf["come"]["isInCar"] == true && $userConf["come"]["isDriver"] == false): ?>
-              <button class="mybutton" onclick="window.location='/?action=quitCar&dir=come&day=<?= substr($_GET["page"],0,3) ?>'">Quitter</button>
-            <?php endif ?>
-          </td>
-
-
-          <?php foreach($cars["come"]["cars"] as $id => $car): ?>
-            <td style="">
-              <?php if($userConf["come"]["isInCar"] == false && $userConf["come"]["isDriver"] == false && intval($car["maxPlaces"])-count($car["passengers"]) > 0): ?>
-                <button class="mybutton" onclick="window.location='/?action=joinCar&travel=<?=$id?>&day=<?= substr($_GET["page"],0,3) ?>'">Rejoindre</button>
-              <?php endif ?>
-            </td>
-          <?php endforeach ?>
-        </tr>
       </table>
     </div>
   </div>
@@ -198,6 +195,25 @@ $pageTitle = $day;
 
   ><div class="travelCase" style="width: 65%; overflow: scroll">
     <table class="carTable">
+      <tr style="background-color:<?= $maxLines%2==0 ? 'lightgray' : 'white'?>">
+        <th style="">Actions</th>
+        <td style="">
+          <?php if($userConf["back"]["isInCar"] == true && $userConf["back"]["isDriver"] == false): ?>
+            <button class="mybutton" onclick="window.location='/?action=quitCar&dir=back&day=<?= substr($_GET["page"],0,3) ?>'">Quitter</button>
+          <?php endif ?>
+        </td>
+
+        <?php foreach($cars["back"]["cars"] as $id => $car): ?>
+          <td style="">
+            <?php if($userConf["back"]["isInCar"] == false && $userConf["back"]["isDriver"] == false && intval($car["maxPlaces"])-count($car["passengers"]) > 0): ?>
+              <?php $color = (($car["departId"] == $userProfil[$_GET["page"]."Dep"] && $car["cityId"] == $userProfil["cityId"]) ? "red" : "white") ?>
+
+              <button class="mybutton" style="background-color:<?=$color?>" onclick="window.location='/?action=joinCar&travel=<?=$id?>&day=<?= substr($_GET["page"],0,3) ?>'">Rejoindre</button>
+            <?php endif ?>
+          </td>
+        <?php endforeach ?>
+      </tr>
+
       <tr style="background-color:lightgray">
         <th>Conducteur</th>
         <th>Seuls</th>
@@ -217,11 +233,11 @@ $pageTitle = $day;
       </tr>
 
       <tr style="background-color:lightgray">
-        <th>Heure d'arrivée</th>
+        <th>Heure de départ</th>
         <td>───</td>
 
         <?php foreach($cars["back"]["cars"] as $car): ?>
-          <td><?= $car["arrivalHour"] ?></td>
+          <td><?= $car["departHour"] ?></td>
         <?php endforeach ?>
       </tr>
 
@@ -253,26 +269,6 @@ $pageTitle = $day;
           <?php endforeach ?>
         </tr>
       <?php endfor ?>
-
-
-
-
-      <tr style="background-color:<?= $maxLines%2==0 ? 'lightgray' : 'white'?>">
-        <th style="">Actions</th>
-        <td style="">
-          <?php if($userConf["back"]["isInCar"] == true && $userConf["back"]["isDriver"] == false): ?>
-            <button class="mybutton" onclick="window.location='/?action=quitCar&dir=back&day=<?= substr($_GET["page"],0,3) ?>'">Quitter</button>
-          <?php endif ?>
-        </td>
-
-        <?php foreach($cars["back"]["cars"] as $id => $car): ?>
-          <td style="">
-            <?php if($userConf["back"]["isInCar"] == false && $userConf["back"]["isDriver"] == false && intval($car["maxPlaces"])-count($car["passengers"]) > 0): ?>
-              <button class="mybutton" onclick="window.location='/?action=joinCar&travel=<?=$id?>&day=<?= substr($_GET["page"],0,3) ?>'">Rejoindre</button>
-            <?php endif ?>
-          </td>
-        <?php endforeach ?>
-      </tr>
     </table>
   </div>
 </div>

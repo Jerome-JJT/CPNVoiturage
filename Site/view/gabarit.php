@@ -72,7 +72,7 @@
             <strong><?= $pageTitle != null ? $pageTitle : "CPNVoiturage" ?></strong>
           </div>
           <hr>
-          <p>Connecté en tant que <?= $_SESSION["acro"] ?></p>
+          <?php if(isset($_SESSION["acro"])): ?><p>Connecté en tant que <?= $_SESSION["acro"] ?></p><?php endif ?>
           <?= $content ?>
         </div>
 

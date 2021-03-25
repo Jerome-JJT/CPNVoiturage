@@ -23,6 +23,8 @@ function displayView($day = "mon")
   $backCars = getCarsList($day , "back");
   $backPass = getPassengersList($day , "back");
 
+  $userProfil = getUserProfile($_SESSION["id"]);
+
   //print_r($comeCars); echo("<br><br>");
   //print_r($comePass); echo("<br><br>");
 
@@ -47,7 +49,8 @@ function displayView($day = "mon")
     $cars["come"]["cars"][$driver["id"]] = array(
       "driver" => $driver["DRIVER_ACRO"],
       "city" => $driver["DRIVER_CITY"],
-      "departHour" => "8h00",
+      "cityId" => $driver["DRIVER_CITY_ID"],
+      "arrivalId" => $driver["HOUR_ID"],
       "arrivalHour" => $driver["HOUR"],
       "maxPlaces" => $driver["places"],
       "passengers" => array()
@@ -71,14 +74,15 @@ function displayView($day = "mon")
     }
   }
 
-  foreach ($backCars as $passenger)
+  foreach ($backCars as $driver)
   {
-    $cars["back"]["cars"][$passenger["id"]] = array(
-      "driver" => $passenger["DRIVER_ACRO"],
-      "city" => $passenger["DRIVER_CITY"],
-      "departHour" => $passenger["HOUR"],
-      "arrivalHour" => "17h00",
-      "maxPlaces" => $passenger["places"],
+    $cars["back"]["cars"][$driver["id"]] = array(
+      "driver" => $driver["DRIVER_ACRO"],
+      "city" => $driver["DRIVER_CITY"],
+      "cityId" => $driver["DRIVER_CITY_ID"],
+      "departHour" => $driver["HOUR"],
+      "departId" => $driver["HOUR_ID"],
+      "maxPlaces" => $driver["places"],
       "passengers" => array()
     );
   }
