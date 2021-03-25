@@ -38,16 +38,48 @@ if(isset($_GET["action"]) && $logged)
 {
   switch($_GET["action"])
   {
-    case "signout":
-      signOut();
+      case "signout":
+        signOut();
+        break;
+
+      case "joinCar":
+        if(isset($_GET["travel"]) && isset($_GET["day"]))
+        {
+          joinCar($_GET["travel"], $_GET["day"]);
+        }
+        else { header("Location:/"); }
       break;
 
-    case "joinCar":
-      if(isset($_GET["travel"]))
-      {
-        joinCar($_GET["travel"]);
-      }
-    else { header("Location:/"); }
+      case "quitCar":
+        if(isset($_GET["dir"]) && isset($_GET["day"]))
+        {
+          quitCar($_GET["dir"], $_GET["day"]);
+        }
+        else { header("Location:/"); }
+      break;
+
+      case "createCar":
+        if(isset($_GET["dir"]) && isset($_GET["day"]) && isset($_GET["nbPlaces"]))
+        {
+          createCar($_GET["dir"], $_GET["day"], $_GET["nbPlaces"]);
+        }
+      else { header("Location:/"); }
+      break;
+
+      case "deleteCar":
+        if(isset($_GET["car"]) && isset($_GET["day"]))
+        {
+          deleteCar($_GET["car"], $_GET["day"]);
+        }
+      else { header("Location:/"); }
+      break;
+
+      case "updateProfile":
+        updateProfile($_POST);
+      break;
+
+      case "importEDT":
+        importEDT();
       break;
   }
 }
@@ -55,23 +87,23 @@ else if(isset($_GET["page"]) && $logged)
 {
   switch($_GET["page"])
   {
-    case "monday":
+    case "mon":
       displayView("mon");
       break;
 
-    case "tuesday":
+    case "tue":
       displayView("tue");
       break;
 
-    case "wednesday":
+    case "wed":
       displayView("wed");
       break;
 
-    case "thursday":
+    case "thu":
       displayView("thu");
       break;
 
-    case "friday":
+    case "fri":
       displayView("fri");
       break;
 
@@ -80,13 +112,13 @@ else if(isset($_GET["page"]) && $logged)
       break;
 
     default:
-      displayView("mon");
+      header("Location:/?page=mon");
 
   }
 }
 else if($logged)
 {
-  displayView();
+  header("Location:/?page=mon");
 }
 
 

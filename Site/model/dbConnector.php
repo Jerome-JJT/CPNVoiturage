@@ -29,7 +29,7 @@ function executeQueryInsert($query, $data = array())
   }
 
   $pdo = null;//close database connexion
-  return ($result === false ? false : true);
+  return ($result !== false);
 }
 
 

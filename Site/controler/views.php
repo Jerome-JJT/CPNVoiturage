@@ -115,7 +115,7 @@ function displayView($day = "mon")
   if($userConf["come"]["isDriver"] !== false){ $userConf["come"]["isDriver"] = $comeCars[$userConf["come"]["isDriver"]]; }
 
   $userConf["back"]["isDriver"] = array_search($userId, array_column($backCars, "DRIVER_ID"));
-  if($userConf["back"]["isDriver"] !== false){ $userConf["back"]["isDriver"] = $comeCars[$userConf["back"]["isDriver"]]; }
+  if($userConf["back"]["isDriver"] !== false){ $userConf["back"]["isDriver"] = $backCars[$userConf["back"]["isDriver"]]; }
 
 
 
@@ -141,8 +141,6 @@ function displayProfil()
   $endOptions = getPeriodOptions("back");
 
   $userProfil = getUserProfile($_SESSION["id"]);
-
-  print_r($userProfil);
 
   $days = array("mon" => "monday", "tue" => "tuesday", "wed" => "wednesday", "thu" => "thursday", "fri" => "friday");
 

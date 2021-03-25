@@ -5,7 +5,6 @@ ob_start();
 $title = "Voitures - Admin";
 $pageTitle = "Administration";
 
-
 ?>
 
 

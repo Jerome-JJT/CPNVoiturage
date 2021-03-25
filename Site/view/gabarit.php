@@ -28,23 +28,23 @@
             </div>
 
             <div class="other-days">
-              <div class="nav-tab" onclick="window.location='?page=monday'">
+              <div class="nav-tab" onclick="window.location='?page=mon'">
                 <strong>Lundi</strong>
               </div>
 
-              <div class="nav-tab" onclick="window.location='?page=tuesday'">
+              <div class="nav-tab" onclick="window.location='?page=tue'">
                 <strong>Mardi</strong>
               </div>
 
-              <div class="nav-tab" onclick="window.location='?page=wednesday'">
+              <div class="nav-tab" onclick="window.location='?page=wed'">
                 <strong>Mercredi</strong>
               </div>
 
-              <div class="nav-tab" onclick="window.location='?page=thursday'">
+              <div class="nav-tab" onclick="window.location='?page=thu'">
                 <strong>Jeudi</strong>
               </div>
 
-              <div class="nav-tab" onclick="window.location='?page=friday'">
+              <div class="nav-tab" onclick="window.location='?page=fri'">
                 <strong>Vendredi</strong>
               </div>
             </div>
@@ -54,9 +54,16 @@
           <div id="profil-button" onclick="window.location='?action=signout'">
             <strong>Quitter</strong>
           </div>
-          <div id="profil-button" onclick="window.location='?page=profil'">
-            <strong>Profil</strong>
-          </div>
+          <?php if(isset($_SESSION["id"])): ?>
+            <div id="profil-button" onclick="window.location='?page=profil'">
+              <strong>Profil</strong>
+            </div>
+          <?php endif ?>
+          <?php if(isset($_SESSION["id"]) && strlen($_SESSION["acro"]) > 3): ?>
+            <div id="profil-button" onclick="window.location='?admin='">
+              <strong>Admin</strong>
+            </div>
+          <?php endif ?>
         </div> <!-- END NAVI-MENU -->
 
 
@@ -65,7 +72,7 @@
             <strong><?= $pageTitle != null ? $pageTitle : "CPNVoiturage" ?></strong>
           </div>
           <hr>
-
+          <p>Connecté en tant que <?= $_SESSION["acro"] ?></p>
           <?= $content ?>
         </div>
 

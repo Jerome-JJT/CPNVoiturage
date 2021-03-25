@@ -2,10 +2,31 @@
 
 ob_start();
 
-$title = "Voitures - Lundi";
-$pageTitle = "Lundi";
+$day = "Lundi";
+switch($_GET["page"])
+{
+  case "mon":
+    $day = "Lundi";
+  break;
+  case "tue":
+    $day = "Mardi";
+  break;
+  case "wed":
+    $day = "Mercredi";
+  break;
+  case "thu":
+    $day = "Jeudi";
+  break;
+  case "fri":
+    $day = "Vendredi";
+  break;
 
-print_r($cars["come"]);
+}
+
+$title = "Voitures - ".$day;
+$pageTitle = $day;
+
+//print_r($userConf);
 
 ?>
 
@@ -21,14 +42,26 @@ print_r($cars["come"]);
       <strong>Ajout de voiture</strong><br><br>
 
       <?php if($userConf["come"]["isDriver"] == false && $userConf["come"]["isInCar"] == false): ?>
-        <label for="nbPlaces">Nombre de places passagers</label>
-        <input id="nbPlaces" name="nbPlaces" type="number" value="4" min="1" max="10"><br><br>
+        <form method="GET">
+          <label for="nbPlaces">Nombre de places passagers</label>
+          <input id="nbPlaces" name="nbPlaces" type="number" value="4" min="1" max="10"><br><br>
 
-        <button class="mybutton">Ajouter ma voiture</button>
+          <input type="hidden" name="action" value="createCar">
+          <input type="hidden" name="dir" value="come">
+          <input type="hidden" name="day" value="<?= substr($_GET["page"],0,3)?>">
+
+          <button class="mybutton">Ajouter ma voiture</button>
+        </form>
 
       <?php elseif($userConf["come"]["isDriver"] == true): ?>
-        <label for="nbPlaces">Nombre de places passagers : <?= $userConf["come"]["isDriver"]["places"] ?></label><br><br>
-        <button class="mybutton">Enlever ma voiture</button>
+        <form method="GET">
+          <label for="nbPlaces">Nombre de places passagers : <?= $userConf["come"]["isDriver"]["places"] ?></label><br><br>
+          <button class="mybutton">Enlever ma voiture</button>
+
+          <input type="hidden" name="action" value="deleteCar">
+          <input type="hidden" name="car" value="<?= $userConf["come"]["isDriver"]["id"] ?>">
+          <input type="hidden" name="day" value="<?= substr($_GET["page"],0,3)?>">
+        </form>
 
       <?php else: ?>
           Déjà dans une voiture
@@ -100,15 +133,15 @@ print_r($cars["come"]);
           <th style="">Actions</th>
           <td style="">
             <?php if($userConf["come"]["isInCar"] == true && $userConf["come"]["isDriver"] == false): ?>
-              <button class="mybutton">Quitter</button>
+              <button class="mybutton" onclick="window.location='/?action=quitCar&dir=come&day=<?= substr($_GET["page"],0,3) ?>'">Quitter</button>
             <?php endif ?>
           </td>
 
 
           <?php foreach($cars["come"]["cars"] as $id => $car): ?>
             <td style="">
-              <?php if($userConf["come"]["isInCar"] == false && $userConf["come"]["isDriver"] == false): ?>
-                <button class="mybutton" onclick="window.location='/?action=joinCar&travel=<?=$id?>'">Rejoindre</button>
+              <?php if($userConf["come"]["isInCar"] == false && $userConf["come"]["isDriver"] == false && intval($car["maxPlaces"])-count($car["passengers"]) > 0): ?>
+                <button class="mybutton" onclick="window.location='/?action=joinCar&travel=<?=$id?>&day=<?= substr($_GET["page"],0,3) ?>'">Rejoindre</button>
               <?php endif ?>
             </td>
           <?php endforeach ?>
@@ -137,14 +170,26 @@ print_r($cars["come"]);
 
 
     <?php if($userConf["back"]["isDriver"] == false && $userConf["back"]["isInCar"] == false): ?>
-      <label for="nbPlaces">Nombre de places passagers</label>
-      <input id="nbPlaces" name="nbPlaces" type="number" value="4" min="1" max="10"><br><br>
+      <form method="GET">
+        <label for="nbPlaces">Nombre de places passagers</label>
+        <input id="nbPlaces" name="nbPlaces" type="number" value="4" min="1" max="10"><br><br>
 
-      <button class="mybutton">Ajouter ma voiture</button>
+        <input type="hidden" name="action" value="createCar">
+        <input type="hidden" name="dir" value="back">
+        <input type="hidden" name="day" value="<?= substr($_GET["page"],0,3)?>">
+
+        <button class="mybutton">Ajouter ma voiture</button>
+      </form>
 
     <?php elseif($userConf["back"]["isDriver"] == true): ?>
-      <label for="nbPlaces">Nombre de places passagers : <?= $userConf["back"]["isDriver"]["places"] ?></label><br><br>
-      <button class="mybutton">Enlever ma voiture</button>
+      <form method="GET">
+        <label for="nbPlaces">Nombre de places passagers : <?= $userConf["back"]["isDriver"]["places"] ?></label><br><br>
+        <button class="mybutton">Enlever ma voiture</button>
+
+        <input type="hidden" name="action" value="deleteCar">
+        <input type="hidden" name="car" value="<?= $userConf["back"]["isDriver"]["id"] ?>">
+        <input type="hidden" name="day" value="<?= substr($_GET["page"],0,3)?>">
+      </form>
 
     <?php else: ?>
       Déjà dans une voiture
@@ -216,14 +261,14 @@ print_r($cars["come"]);
         <th style="">Actions</th>
         <td style="">
           <?php if($userConf["back"]["isInCar"] == true && $userConf["back"]["isDriver"] == false): ?>
-            <button class="mybutton">Quitter</button>
+            <button class="mybutton" onclick="window.location='/?action=quitCar&dir=back&day=<?= substr($_GET["page"],0,3) ?>'">Quitter</button>
           <?php endif ?>
         </td>
 
         <?php foreach($cars["back"]["cars"] as $id => $car): ?>
           <td style="">
-            <?php if($userConf["back"]["isInCar"] == false && $userConf["back"]["isDriver"] == false): ?>
-              <button class="mybutton" onclick="window.location='/?action=joinCar&travel=<?=$id?>'">Rejoindre</button>
+            <?php if($userConf["back"]["isInCar"] == false && $userConf["back"]["isDriver"] == false && intval($car["maxPlaces"])-count($car["passengers"]) > 0): ?>
+              <button class="mybutton" onclick="window.location='/?action=joinCar&travel=<?=$id?>&day=<?= substr($_GET["page"],0,3) ?>'">Rejoindre</button>
             <?php endif ?>
           </td>
         <?php endforeach ?>
