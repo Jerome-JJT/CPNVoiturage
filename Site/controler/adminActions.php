@@ -129,16 +129,16 @@ function executeEDT()
       (:monArr, :monDep, :tueArr, :tueDep, :wedArr, :wedDep, :thuArr, :thuDep, :friArr, :friDep);";
 
       $upsertData = array(":acronym" => $line["ACRO"],
-        ":monArr" => $line["monArr"],
-        ":monDep" => $line["monDep"],
-        ":tueArr" => $line["tueArr"],
-        ":tueDep" => $line["tueDep"],
-        ":wedArr" => $line["wedArr"],
-        ":wedDep" => $line["wedDep"],
-        ":thuArr" => $line["thuArr"],
-        ":thuDep" => $line["thuDep"],
-        ":friArr" => $line["friArr"],
-        ":friDep" => $line["friDep"]
+        ":monArr" => isset($line["monArr"]) ? $line["monArr"]+1 : null,
+        ":monDep" => isset($line["monDep"]) ? $line["monDep"]+12 : null,
+        ":tueArr" => isset($line["tueArr"]) ? $line["tueArr"]+1 : null,
+        ":tueDep" => isset($line["tueDep"]) ? $line["tueDep"]+12 : null,
+        ":wedArr" => isset($line["wedArr"]) ? $line["wedArr"]+1 : null,
+        ":wedDep" => isset($line["wedDep"]) ? $line["wedDep"]+12 : null,
+        ":thuArr" => isset($line["thuArr"]) ? $line["thuArr"]+1 : null,
+        ":thuDep" => isset($line["thuDep"]) ? $line["thuDep"]+12 : null,
+        ":friArr" => isset($line["friArr"]) ? $line["friArr"]+1 : null,
+        ":friDep" => isset($line["friDep"]) ? $line["friDep"]+12 : null
       );
 
       $confirm = executeQueryInsert($upsertQuery, $upsertData);
