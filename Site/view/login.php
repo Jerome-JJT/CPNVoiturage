@@ -25,7 +25,7 @@ $pageTitle = "Connexion";
     <form method="POST" action="?action=loginAccount">
       <table class="login-table">
         <tr>
-          <th>Abréviation CPNV</th>
+          <th>Abréviation CPNV (3 lettres)</th>
 
           <td><input type="text" name="acronym" value="<?= $acronym ?>" required></td>
         </tr>
@@ -54,7 +54,7 @@ $pageTitle = "Connexion";
     <form method="POST" action="?action=createAccount">
       <table class="login-table">
         <tr>
-          <th>Abréviation CPNV</th>
+          <th>Abréviation CPNV (3 lettres)</th>
 
           <td><input type="text" name="acronym" value="<?= $acronym ?>" maxlength="3" required></td>
         </tr>
